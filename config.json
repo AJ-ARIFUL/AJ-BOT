@@ -1,0 +1,9 @@
+{
+  "botName": "Arif AI",
+  "prefix": "!",
+  "adminUID": ["তোমার-FB-UID-এখানে"],
+  "ownerName": "MD ARIFUL ISLAM JIM",
+  "openAI_Key": "sk-xxxxxx",
+  "port": 3000,
+  "language": "bn"
+}
