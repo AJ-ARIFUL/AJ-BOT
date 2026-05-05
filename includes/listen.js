@@ -1,29 +1,38 @@
-const fs = require('fs');
 const login = require('@xaviabot/fca-unofficial');
+const fs = require('fs');
 const config = require('../config.json');
-const log = require('../utils/log');
 
 module.exports = function() {
     login({ appState: JSON.parse(fs.readFileSync('./appstate.json', 'utf8')) }, (err, api) => {
-        if (err) return log(err, 'ERROR');
+        if (err) return console.log(err);
         
-        api.setOptions({ listenEvents: true, selfListen: false, logLevel: 'silent' });
-        log(`Logged in as ${config.botName}`, 'INFO');
-        fs.writeFileSync('./appstate.json', JSON.stringify(api.getAppState(), null, 2));
-
-        // সব হ্যান্ডেলার লোড করো
+        api.setOptions({ listenEvents: true, selfListen: false });
+        console.log(`[BOT] Logged in as ${config.botName}`);
+        
+        // DB তৈরি করো
+        require('./handle/handleCreateDatabase')();
+        
+        // হ্যান্ডেলার লোড
         const handleCommand = require('./handle/handleCommand');
-        const handleEvent = require('./handle/handleEvent');
         const handleReply = require('./handle/handleReply');
+        const handleReaction = require('./handle/handleReaction');
+        const handleEvent = require('./handle/handleEvent');
+        const handleCommandEvent = require('./handle/handleCommandEvent');
+        
+        // অটো রান কমান্ড
+        handleCommandEvent({ api, config });
 
         api.listenMqtt((err, event) => {
-            if (err) return log(err, 'ERROR');
+            if (err) return console.log(err);
             
             switch (event.type) {
                 case "message":
                 case "message_reply":
                     handleCommand({ api, event, config });
                     handleReply({ api, event, config });
+                    break;
+                case "message_reaction":
+                    handleReaction({ api, event, config });
                     break;
                 case "event":
                     handleEvent({ api, event, config });
