@@ -1,40 +1,21 @@
 const { sequelize } = require('./model');
-const Teach = require('./models/teach.model');
 
-// ডাটাবেস সিঙ্ক করো - টেবিল অটো বানাবে
-sequelize.sync({ force: false });
+// সব মডেল ইম্পোর্ট
+const Teach = require('./database/models/teach.model');
+const Users = require('./database/models/users.model');
+const Threads = require('./database/models/threads.model');
+const Currencies = require('./database/models/currencies.model');
 
+// সব টেবিল অটো বানায় ফেলবে
+sequelize.sync({ force: false })
+    .then(() => console.log('All tables synced'))
+    .catch(err => console.log('Sync error:', err));
+
+// এক্সপোর্ট যাতে অন্য ফাইলে ইউজ করতে পারো
 module.exports = {
-    // শিখানো ডাটা অ্যাড
-    addTeach: async (trigger, reply, author) => {
-        try {
-            await Teach.upsert({ trigger, reply, author });
-            return true;
-        } catch (e) {
-            console.log(e);
-            return false;
-        }
-    },
-
-    // ডাটা খোঁজা
-    getTeach: async (trigger) => {
-        const data = await Teach.findOne({ where: { trigger } });
-        return data;
-    },
-
-    // ডিলিট
-    delTeach: async (trigger) => {
-        const data = await Teach.destroy({ where: { trigger } });
-        return data;
-    },
-
-    // সব লিস্ট
-    getAllTeach: async () => {
-        const data = await Teach.findAll();
-        return data;
-    },
-
-    // মডেল এক্সপোর্ট
+    sequelize,
     Teach,
-    sequelize
+    Users,
+    Threads,
+    Currencies
 };
