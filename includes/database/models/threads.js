@@ -1,4 +1,4 @@
-const { sequelize, DataTypes } = require('../model');
+const { sequelize, DataTypes } = require('../../model');
 
 const Threads = sequelize.define('threads', {
     threadID: {
@@ -12,7 +12,7 @@ const Threads = sequelize.define('threads', {
         type: DataTypes.STRING
     },
     adminIDs: {
-        type: DataTypes.JSON, // Array সেভ হবে
+        type: DataTypes.JSON,
         defaultValue: []
     },
     members: {
@@ -30,6 +30,31 @@ const Threads = sequelize.define('threads', {
     onlyAdmin: {
         type: DataTypes.BOOLEAN,
         defaultValue: false
+    },
+    // নতুন 3টা কলাম
+    antiBD: { 
+        type: DataTypes.BOOLEAN, 
+        defaultValue: false 
+    },
+    antiJoin: { 
+        type: DataTypes.BOOLEAN, 
+        defaultValue: false 
+    },
+    antiOut: { 
+        type: DataTypes.BOOLEAN, 
+        defaultValue: false 
+    },
+    antiRobbery: { 
+        type: DataTypes.BOOLEAN, 
+        defaultValue: false 
+    },
+    autoSetName: { 
+        type: DataTypes.BOOLEAN, 
+        defaultValue: false 
+    },
+    nickNameFormat: { 
+        type: DataTypes.STRING, 
+        defaultValue: "[{count}] {name}" 
     }
 }, {
     timestamps: true
