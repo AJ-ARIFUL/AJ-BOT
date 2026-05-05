@@ -1,0 +1,33 @@
+{
+    "name": "Tiếng Việt",
+    "prefix": "Tiền tố",
+    "commands": {
+        "help": {
+            "description": "Xem danh sách tất cả lệnh",
+            "usage": "{p}help [tên lệnh]"
+        },
+        "teach": {
+            "description": "Dạy bot câu trả lời mới",
+            "usage": "{p}teach tin nhắn => bot trả lời",
+            "success": "Dạy thành công ✅\nTin nhắn: {0}\nBot trả lời: {1}",
+            "noPermission": "Chỉ admin mới dạy được ❌"
+        },
+        "rank": {
+            "description": "Xem xếp hạng của bạn",
+            "body": "Tên: {0}\nLevel: {1}\nEXP: {2}/{3}\nTin nhắn: {4}\nHạng: #{5}"
+        },
+        "daily": {
+            "description": "Nhận thưởng hàng ngày",
+            "success": "Chúc mừng! Bạn nhận được {0}$ 💰\nSố dư: {1}$",
+            "already": "Bạn đã nhận hôm nay rồi ❌\nThử lại sau {0}h {1}p"
+        }
+    },
+    "system": {
+        "noPermission": "Bạn không có quyền dùng lệnh này ❌",
+        "commandNotFound": "Không tìm thấy lệnh ❌",
+        "error": "Đã xảy ra lỗi: {0}",
+        "botJoin": "Xin chào mọi người 👋\nTôi là {0}\nGõ {1}help để xem lệnh",
+        "userJoin": "Chào mừng @{0} 👋\nVui lòng tuân thủ quy tắc nhóm",
+        "userLeave": "Tạm biệt {0} 😢"
+    }
+}
