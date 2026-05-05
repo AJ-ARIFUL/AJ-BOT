@@ -1,0 +1,33 @@
+{
+    "name": "English",
+    "prefix": "Prefix",
+    "commands": {
+        "help": {
+            "description": "View all command list",
+            "usage": "{p}help [command name]"
+        },
+        "teach": {
+            "description": "Teach bot new replies",
+            "usage": "{p}teach your text => bot reply",
+            "success": "Teaching successful ✅\nYour text: {0}\nBot reply: {1}",
+            "noPermission": "Only admin can teach ❌"
+        },
+        "rank": {
+            "description": "View your rank",
+            "body": "Name: {0}\nLevel: {1}\nEXP: {2}/{3}\nMessages: {4}\nRank: #{5}"
+        },
+        "daily": {
+            "description": "Claim daily reward",
+            "success": "Congratulations! You got {0}$ 💰\nBalance: {1}$",
+            "already": "You already claimed today ❌\nTry again after {0}h {1}m"
+        }
+    },
+    "system": {
+        "noPermission": "You don't have permission to use this command ❌",
+        "commandNotFound": "Command not found ❌",
+        "error": "Error occurred: {0}",
+        "botJoin": "Hello everyone 👋\nI'm {0}\nType {1}help to see commands",
+        "userJoin": "Welcome @{0} 👋\nPlease follow group rules",
+        "userLeave": "Goodbye {0} 😢"
+    }
+}
