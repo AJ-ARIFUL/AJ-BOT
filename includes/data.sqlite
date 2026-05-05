@@ -1,0 +1,52 @@
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const db = new sqlite3.Database(path.join(__dirname, '../data.sqlite'));
+
+// টেবিল বানাও
+db.serialize(() => {
+    db.run(`CREATE TABLE IF NOT EXISTS teach (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        trigger TEXT UNIQUE,
+        reply TEXT,
+        author TEXT
+    )`);
+});
+
+module.exports = {
+    // শিখানো ডাটা অ্যাড
+    addTeach: (trigger, reply, author) => {
+        return new Promise((res, rej) => {
+            db.run(`INSERT OR REPLACE INTO teach (trigger, reply, author) VALUES (?, ?, ?)`, 
+                [trigger, reply, author], 
+                (err) => err ? rej(err) : res()
+            );
+        });
+    },
+    
+    // ডাটা খোঁজা
+    getTeach: (trigger) => {
+        return new Promise((res, rej) => {
+            db.get(`SELECT reply FROM teach WHERE trigger = ?`, [trigger], (err, row) => {
+                err ? rej(err) : res(row);
+            });
+        });
+    },
+
+    // ডিলিট
+    delTeach: (trigger) => {
+        return new Promise((res, rej) => {
+            db.run(`DELETE FROM teach WHERE trigger = ?`, [trigger], (err) => {
+                err ? rej(err) : res();
+            });
+        });
+    },
+
+    // সব লিস্ট
+    getAllTeach: () => {
+        return new Promise((res, rej) => {
+            db.all(`SELECT * FROM teach`, (err, rows) => {
+                err ? rej(err) : res(rows);
+            });
+        });
+    }
+};
